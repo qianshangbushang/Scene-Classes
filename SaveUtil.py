@@ -12,13 +12,13 @@ def product_npz_data(image_path, label_path, label_json_path, save_path):
     label_result = []
     f = open(label_path, "r+")
     lines = f.readlines()
-    for line in lines[:10]:
+    for line in lines:
         image_name = line.split(" ")[0]
         total_path = image_path + "/" + image_name
         print("deal with image :", total_path)
         image = cv2.imread(total_path)
         image = IP.resize(image)
-        image_result.append(image)
+        image_result.append(image/255)
         label_result.append(int(line.strip("\n").split(" ")[1]))
 
     image_result = np.asarray(image_result)
@@ -30,7 +30,10 @@ def product_npz_data(image_path, label_path, label_json_path, save_path):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) != 3:
-        print("usage：python product_npz_data.py image_base_path label_path")
-        exit(-1)
-    product_npz_data(sys.argv[1], sys.argv[2])
+    # if len(sys.argv) != 3:
+    #     print("usage：python product_npz_data.py image_base_path label_path")
+    #     exit(-1)
+    # product_npz_data(sys.argv[1], sys.argv[2])
+    img = cv2.imread("1.jpg")
+    img = img /255
+    print(img)
