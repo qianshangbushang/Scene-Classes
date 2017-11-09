@@ -4,6 +4,7 @@ from keras.datasets import mnist
 from keras.layers import Dense, Flatten, Dropout
 from keras.layers.convolutional import Conv2D, MaxPooling2D
 from Resnet import *
+
 import numpy as np
 
 

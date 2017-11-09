@@ -18,7 +18,8 @@ def product_npz_data(image_path, label_path, label_json_path, save_path):
         print("deal with image :", total_path)
         image = cv2.imread(total_path)
         image = IP.resize(image)
-        image_result.append(image/255)
+        cv2.imwrite("../output_file/"+image_name, image)
+        image_result.append(image)
         label_result.append(int(line.strip("\n").split(" ")[1]))
 
     image_result = np.asarray(image_result)
@@ -34,6 +35,10 @@ if __name__ == '__main__':
     #     print("usage：python product_npz_data.py image_base_path label_path")
     #     exit(-1)
     # product_npz_data(sys.argv[1], sys.argv[2])
-    img = cv2.imread("1.jpg")
-    img = img /255
-    print(img)
+    dict = ParseUtil.parse_config()
+    print(dict)
+    image_base_path = dict['train_image_path']
+    label_path = dict['train_label_path']
+    label_json_path = dict['train_json_path']
+    save_path = "./train2.npz"
+    product_npz_data(image_base_path, label_path, label_json_path, save_path)

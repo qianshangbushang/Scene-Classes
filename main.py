@@ -47,8 +47,8 @@ def main():
     X_test = X[50000:]
     y_test = y[50000:]
 
-    #X_train = X_train / 255
-    #X_test = X_test / 255
+    X_train = X_train * 1.0 / 255
+    X_test = X_test * 1.0 / 255
     y_train_onehot = np.array([vgg16.tran_y(y_train[i]) for i in range(len(y_train))])
     y_test_onehot = np.array([vgg16.tran_y(i) for i in y_test])
 
@@ -59,7 +59,7 @@ def main():
     #model = vgg16.construct_model_vgg16()
     model = vgg16.construct_model_resnet()
 
-    model.fit(X_train, y_train_onehot, validation_data=(X_test, y_test_onehot), epochs=20, batch_size=128)
+    model.fit(X_train, y_train_onehot, validation_data=(X_test, y_test_onehot), epochs=20, batch_size=32)
     scores = model.evaluate(X_test, y_test_onehot, verbose=0)
     print(scores)
 

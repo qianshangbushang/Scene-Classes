@@ -91,8 +91,8 @@ def run(input_path, output_path):
 #     exit(0)
 if __name__ == '__main__':
     image = cv2.imread("1.jpg")
-    cv2.imshow("1",image)
+    cv2.imshow("1", image)
     image = resize(image)
-    cv2.imshow("2",image)
+    cv2.imshow("2", image)
     cv2.waitKey()
     print(image.shape)
