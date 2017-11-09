@@ -1,0 +1,6 @@
+train_image_path=/home/cvpr/chaucer/ai_challenger_scene_train_20170904/scene_train_images_20170904
+train_label_path=/home/cvpr/chaucer/MyCode/output_file/train_label.txt
+train_json_path=/home/cvpr/chaucer/ai_challenger_scene_train_20170904/scene_train_annotations_20170904.json
+test_image_path=/home/cvpr/chaucer/ai_challenger_scene_test_a_20170922/scene_test_a_images_20170922
+test_label_path=/home/cvpr/chaucer/MyCode/output_file/test_label.txt
+test_json_path=/home/cvpr/chaucer/ai_challenger_scene_test_a_20170922/xxx.json
