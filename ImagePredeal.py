@@ -8,6 +8,39 @@ from PIL import Image
 image_root = "F:/PyCharm Code/challengerAi/data"
 
 
+def resize(image, shapeV , inter = cv2.INTER_AREA):
+    dim = None
+    img_c =[]
+    (h,w) = image.shape[:2]
+    print(h,w)
+    if h>w :
+        r = shapeV/float(w)
+        dim = (int(h*r), shapeV)
+        image_resize = cv2.resize(image, dim,  interpolation=inter)
+        #img_c = np.zeros((shapeV, shapeV, 3), np.uint8)
+        (h_c, w_c) = image_resize.shape[:2]
+       # cv2.imshow("r",image_resize)
+        l1 = int(shapeV/2 - h_c/2)
+        l2 = int(shapeV/2 + h_c/2)
+        img_c = image_resize[0:h_c, l1:l2]
+    else:
+        r = shapeV/float(h)
+        dim = (shapeV, int(w*r))
+        image_resize = cv2.resize(image, dim, interpolation=inter)
+       # cv2.imshow("r", image_resize)
+        (h_c, w_c) = image_resize.shape[:2]
+        l1 = int(shapeV/2 - w_c/2)
+        l2 = int(shapeV/2 + w_c/2)
+        img_c = image_resize[l1:l2, 0:w_c]
+
+    #
+    # cv2.waitKey()
+    return img_c
+
+
+
+
+
 def getImage():
     image_data = []
     image_num = 7
@@ -16,7 +49,7 @@ def getImage():
         img.show()
 
 
-def resize(image, inter=cv2.INTER_AREA):  # inter 为插值的方式
+def resize_1(image, inter=cv2.INTER_AREA):  # inter 为插值的方式
     # 初始化缩放比例，并获取图像尺寸
     dim = None
     (h, w) = image.shape[:2]
@@ -92,7 +125,7 @@ def run(input_path, output_path):
 if __name__ == '__main__':
     image = cv2.imread("1.jpg")
     cv2.imshow("1", image)
-    image = resize(image)
+    image = resize(image, 224)
     cv2.imshow("2", image)
     cv2.waitKey()
     print(image.shape)
