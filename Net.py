@@ -14,9 +14,9 @@ def tran_y(y):
     return y_onehot
 
 def construct_model_resnet():
-    model = ResnetBuilder.build_resnet_18((3, 224, 224), 80)
+    model = ResnetBuilder.build_resnet_50((3, 112, 112), 80)
     model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
-    model.summary
+    model.summary()
     return model
 
 def construct_model_vgg16():

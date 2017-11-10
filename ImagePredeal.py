@@ -4,6 +4,7 @@ import numpy as np
 import os
 import glob
 from PIL import Image
+from keras.preprocessing.image import *
 
 image_root = "F:/PyCharm Code/challengerAi/data"
 
@@ -15,7 +16,7 @@ def resize(image, shapeV , inter = cv2.INTER_AREA):
     print(h,w)
     if h>w :
         r = shapeV/float(w)
-        dim = (int(h*r), shapeV)
+        dim = (int(h*r) + 1, shapeV)
         image_resize = cv2.resize(image, dim,  interpolation=inter)
         #img_c = np.zeros((shapeV, shapeV, 3), np.uint8)
         (h_c, w_c) = image_resize.shape[:2]
@@ -25,7 +26,7 @@ def resize(image, shapeV , inter = cv2.INTER_AREA):
         img_c = image_resize[0:h_c, l1:l2]
     else:
         r = shapeV/float(h)
-        dim = (shapeV, int(w*r))
+        dim = (shapeV, int(w*r) + 1)
         image_resize = cv2.resize(image, dim, interpolation=inter)
        # cv2.imshow("r", image_resize)
         (h_c, w_c) = image_resize.shape[:2]
@@ -123,9 +124,11 @@ def run(input_path, output_path):
 #     run(sys.argv[1], sys.argv[2])
 #     exit(0)
 if __name__ == '__main__':
-    image = cv2.imread("1.jpg")
-    cv2.imshow("1", image)
-    image = resize(image, 224)
-    cv2.imshow("2", image)
-    cv2.waitKey()
+    #image = load_img("1.jpg", target_size=(112, 112, 3))
+    image = cv2.imread("2.jpg")
+    image = resize(image, 112)
+    image = img_to_array(image)
+    print(image.shape)
+    assert image.shape ==(112, 112, 3)
+    print(image.dtype)
     print(image.shape)
