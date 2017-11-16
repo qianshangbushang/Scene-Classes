@@ -1,10 +1,11 @@
-from keras.applications import VGG16
+from keras import optimizers
+from keras.applications import VGG16, inception_v3
 from keras.models import Sequential
 from keras.datasets import mnist
-from keras.layers import Dense, Flatten, Dropout
+from keras.layers import Dense, Flatten, Dropout, GlobalAvgPool2D
 from keras.layers.convolutional import Conv2D, MaxPooling2D
 from Resnet import *
-
+from DeepLab import DeeplabV2
 import numpy as np
 
 
@@ -12,6 +13,26 @@ def tran_y(y):
     y_onehot = np.zeros(80)
     y_onehot[y] = 1
     return y_onehot
+
+
+def construct_model_inceptionv3():
+    model = inception_v3.InceptionV3(include_top=False, weights='imagenet', input_shape=(112, 112, 3), classes=80)
+    x = GlobalAvgPool2D(model.output)
+    x = Dense(x, 80, activation='softmax')
+    model2 = Model(model.input, x)
+    model2.summary()
+    lrate = 0.0001
+    decay = 1e-5
+    sgd = optimizers.SGD(lr=lrate, decay=decay, momentum=0.9, nesterov=True)
+    model2.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
+    return model2
+
+def construct_model_deeplabv2():
+    model = DeeplabV2(input_shape=(3, 112, 112),apply_softmax=False, weights=None, classes=80)
+    model.summary()
+    model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
+    return model
+
 
 def construct_model_resnet():
     model = ResnetBuilder.build_resnet_50((3, 112, 112), 80)
