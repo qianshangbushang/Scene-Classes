@@ -13,7 +13,7 @@ def resize(image, shapeV , inter = cv2.INTER_AREA):
     dim = None
     img_c =[]
     (h,w) = image.shape[:2]
-    print(h,w)
+    print("size2: ", h,w)
     if h>w :
         r = shapeV/float(w)
         dim = (int(h*r) + 1, shapeV)
